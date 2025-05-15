@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-# @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-@api_view(['GET'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+# @api_view(['GET'])
 def index(request):
     courses = {
         'courses': [
@@ -26,4 +26,12 @@ def index(request):
             }
         ]
     }
+    if request.method == "GET":
+        print("GET method called")
+    elif request.method == "POST":
+        print("POST method called")
+    elif request.method == "PUT":
+        print("PUT method called")
+    elif request.method == "DELETE":
+        print("DELETE method called")
     return Response(courses)
