@@ -1,12 +1,23 @@
 from rest_framework import serializers
-from .models import Person
+from .models import Person , Gender
 
+
+class GenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gender
+        fields = ["sex",'id'] # to get only the fields that are specified
+        
 class PersonSerializer(serializers.ModelSerializer):
-    
+    sex = GenderSerializer()
+    country = serializers.SerializerMethodField()
     class Meta:
         model = Person
-        fields = '__all__' 
+        fields = '__all__'  # to get all the fields
+        # depth = 1           # to get the related data of the foreign key
     
+    def get_country(self,obj):
+        gender = Gender.objects.get(id=obj.sex.id)
+        return { 'Country':"India",'Gender':str(gender)} 
     def validate(self, data):
         # if data['name'] == "":
         #     raise serializers.ValidationError("Name is required")

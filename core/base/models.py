@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import EmailField
 
-class gender(models.Model):
+class Gender(models.Model):
     sex = models.CharField(max_length=100)
     
     def __str__(self):
@@ -12,5 +12,5 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     address = EmailField()
-    sex = models.ForeignKey(gender, on_delete=models.CASCADE,related_name='gender', null=True, blank=True)
+    sex = models.ForeignKey(Gender, on_delete=models.CASCADE,related_name='Gender', null=True, blank=True)
     #add null=True, blank=True if there is already data in the database
