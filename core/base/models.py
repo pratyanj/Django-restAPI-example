@@ -12,4 +12,5 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     address = EmailField()
-    sex = models.ForeignKey(gender, on_delete=models.CASCADE,related_name='gender')
+    sex = models.ForeignKey(gender, on_delete=models.CASCADE,related_name='gender', null=True, blank=True)
+    #add null=True, blank=True if there is already data in the database
