@@ -1,8 +1,19 @@
 from rest_framework import serializers
 from .models import Person , Gender
 
+class LoginSerializer(serializers.Serializer):
+    '''
+    serializers.Serializer is a base class provided by Django REST Framework for serializing and deserializing data. 
+    It allows you to convert complex data types (like Django models, querysets) into Python native datatypes that can be easily rendered into JSON, XML, or other content types.
+    It also provides validation and can convert incoming data back into complex types. Unlike ModelSerializer, it doesn't automatically generate fields based on a model - you need to explicitly declare all fields.    '''
+    username = serializers.CharField(max_length=30)
+    password = serializers.CharField(max_length=20)
 
 class GenderSerializer(serializers.ModelSerializer):
+    '''
+    serializers.ModelSerializer is a class provided by Django REST Framework that automatically creates a Serializer class with fields that correspond to the Model fields. 
+    It provides default implementations for creating, updating, and deleting model instances, making it easier to convert complex data types like querysets and model instances into Python datatypes that can then be easily rendered into JSON, XML or other content types.
+    It also handles validation and can create/update model instances from validated data.  '''
     class Meta:
         model = Gender
         fields = ["sex",'id'] # to get only the fields that are specified

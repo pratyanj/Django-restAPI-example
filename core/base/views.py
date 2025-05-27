@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import PersonSerializer
+from .serializers import LoginSerializer, PersonSerializer
 from .models import Person
 import requests
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
@@ -79,9 +79,12 @@ def person_data(request:requests.Request):
         person.delete()
         return Response("Person deleted successfully")
         
+@api_view(['post'])
+def login(request:requests.Request):
+    data = request.data
+    serializer = LoginSerializer(data=data)
+    if serializer.is_valid():
+        data = serializer.data
+        print(data)
+        return Response(f"welcome {data['username']}")
     
-json = {
-"name":"pratyanj",
-"age":2,
-"address":"pratyanj@gmail.com"
-}
