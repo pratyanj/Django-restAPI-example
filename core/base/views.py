@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import LoginSerializer, PersonSerializer
 from .models import Person
@@ -88,3 +89,18 @@ def login(request:requests.Request):
         print(data)
         return Response(f"welcome {data['username']}")
     
+class Person_view(APIView):
+    def get(self, request:requests.Request):
+        return Response("GET method is called from class")
+    
+    def post(self, request:requests.Request):
+        return Response("POST method is called from class")
+    
+    def put(self, request:requests.Request):
+        return Response("PUT method is called from class")
+    
+    def delete(self, request:requests.Request):
+        return Response("DELETE method is called from class")
+    
+    def patch(self, request:requests.Request):
+        return Response("PATCH method is called from class")
