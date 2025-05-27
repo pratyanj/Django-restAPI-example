@@ -19,7 +19,7 @@ class GenderSerializer(serializers.ModelSerializer):
         fields = ["sex",'id'] # to get only the fields that are specified
         
 class PersonSerializer(serializers.ModelSerializer):
-    sex = GenderSerializer()
+    sex = serializers.CharField()
     country = serializers.SerializerMethodField()
     class Meta:
         model = Person
