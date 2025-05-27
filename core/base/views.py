@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.response import Response
 from .serializers import LoginSerializer, PersonSerializer
 from .models import Person
@@ -104,3 +105,18 @@ class Person_view(APIView):
     
     def patch(self, request:requests.Request):
         return Response("PATCH method is called from class")
+
+
+class PersonViewSet(viewsets.ModelViewSet):
+    serializer_class = PersonSerializer
+    queryset = Person.objects.all()
+    
+    def list(self, request):
+        search_query = request.GET.get('search')
+        queryset = self.queryset
+        
+        if search_query:
+            queryset = queryset.filter(name__startwith=search_query)
+            
+        serializer = PersonSerializer(queryset, many=True)
+        return Response({"status": 200,"data": serializer.data})
