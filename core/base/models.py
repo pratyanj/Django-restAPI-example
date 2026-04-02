@@ -14,3 +14,8 @@ class Person(models.Model):
     address = EmailField()
     sex = models.ForeignKey(Gender, on_delete=models.CASCADE,related_name='Gender', null=True, blank=True)
     #add null=True, blank=True if there is already data in the database
+    
+    class Meta:
+        db_table = 'person_details'
+        unique_together = ["name", "address"]
+        

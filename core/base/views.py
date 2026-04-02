@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .serializers import LoginSerializer, PersonSerializer
-from .models import Person
+from .serializers import LoginSerializer, PersonSerializer , GenderSerializer
+from .models import Person, Gender
 import requests
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 # @api_view(['GET'])
@@ -120,3 +120,7 @@ class PersonViewSet(viewsets.ModelViewSet):
             
         serializer = PersonSerializer(queryset, many=True)
         return Response({"status": 200,"data": serializer.data})
+    
+class GenderViewSet(viewsets.ModelViewSet):
+    serializer_class= GenderSerializer
+    queryset = Gender.objects.all()

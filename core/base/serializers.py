@@ -43,7 +43,9 @@ class PersonSerializer(serializers.ModelSerializer):
         return data
     
     def validate_age(self, value:int):
-        if value < 18 :
+        if value < 0:
+            raise serializers.ValidationError('age must me greater then 0')
+        elif value < 18 :
             raise serializers.ValidationError("Age must be greater than 18")
         elif value > 100 :
             raise serializers.ValidationError("Age must be less than 100")
@@ -61,4 +63,7 @@ class PersonSerializer(serializers.ModelSerializer):
         return value
         
     def create(self, validated_data):
-        return Person.objects.create(**validated_data)
+        gender_val = validated_data.pop("sex")
+        Gender_data =  Gender.objects.get(sex=gender_val.upper())
+        return Person.objects.create(**validated_data,sex=Gender_data)
+
